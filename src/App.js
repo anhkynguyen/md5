@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/home/Home";
+import ListLaptop from "./pages/Laptop/ListLaptop";
+import AddLaptop from "./pages/Laptop/AddLaptop";
+import EditLaptop from "./pages/Laptop/EditLaptop";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container-fluid">
+        <Routes>
+          <Route path={"home"} element={<Home></Home>}>
+            <Route path={""} element={<ListLaptop />}></Route>
+            <Route path={"add-laptop"} element={<AddLaptop />}></Route>
+            <Route path={"edit-laptop/:id"} element={<EditLaptop />}></Route>
+          </Route>
+        </Routes>
+      </div>
+    </>
   );
 }
 
