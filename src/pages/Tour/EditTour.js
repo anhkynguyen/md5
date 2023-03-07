@@ -1,21 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Field, Form, Formik } from "formik";
-import { editLaptops } from "../../services/laptopService";
+import { editTours, findById } from "../../services/tourService";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function EditLaptop() {
+export default function EditTour() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const id = useParams();
-  const laptops = useSelector((state) => {
-    console.log(state.laptops.laptops[0]);
-    return state.laptops.laptops[0];
+
+  const tours = useSelector((state) => {
+    return state.tours.tours;
   });
+  useEffect(() => {
+    dispatch(findById(id));
+  }, []);
   const handleEdit = (values) => {
     let data = { ...values };
-    console.log(3, data);
 
-    dispatch(editLaptops(data)).then(() => {
+    dispatch(editTours(data)).then(() => {
       navigate("/home");
     });
   };
@@ -24,12 +27,10 @@ export default function EditLaptop() {
       <div className="col-12">
         <Formik
           initialValues={{
-            idLaptop: id.id,
-            name: laptops.name,
-            price: laptops.price,
-            image: laptops.image,
-            brand: laptops.brand,
-            quantity: laptops.quantity,
+            id: id.id,
+            title: tours.title,
+            price: tours.price,
+            description: tours.description,
           }}
           onSubmit={(values) => {
             handleEdit(values);
@@ -37,10 +38,10 @@ export default function EditLaptop() {
           enableReinitialize={true}
         >
           <Form>
-            <Field type="text" name={"name"} />
+            <Field type="text" name={"title"} />
             <Field type="number" name={"price"} />
-            <Field type="text" name={"brand"} />
-            <Field type="number" name={"quantity"} />
+            <Field type="text" name={"description"} />
+
             <button type="submit">Edit</button>
           </Form>
         </Formik>

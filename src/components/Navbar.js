@@ -28,9 +28,9 @@ function Navbar() {
                     <Link
                       class="nav-link active"
                       aria-current="page"
-                      to={"add-laptop"}
+                      to={"add-tour"}
                     >
-                      Add Laptop
+                      Add
                     </Link>
                   </li>
                   <li class="nav-item">

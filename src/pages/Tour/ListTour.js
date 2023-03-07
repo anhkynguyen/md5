@@ -1,20 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  deleteLaptops,
-  getLaptops,
-} from "../../services/laptopService";
-export default function ListLaptop() {
+import { deleteTours, getTours } from "../../services/tourService";
+export default function ListTour() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const laptops = useSelector((state) => {
-    console.log(state.laptops.laptops);
-    return state.laptops.laptops;
+  const tours = useSelector((state) => {
+    return state.tours.tours;
   });
 
   useEffect(() => {
-    dispatch(getLaptops());
+    dispatch(getTours());
   }, []);
   return (
     <div className="row">
@@ -22,29 +18,24 @@ export default function ListLaptop() {
         <table border={1}>
           <tr>
             <td>STT</td>
-            <td>Name</td>
+            <td>Title</td>
             <td>Price</td>
-            <td>Quantity</td>
-            <td>Image</td>
-            <td>Brand</td>
+            <td>Description</td>
 
             <td>Action</td>
           </tr>
-          {laptops !== undefined &&
-            laptops.map((item, key) => (
+          {tours !== undefined &&
+            tours.map((item, key) => (
               <tr>
                 <td>{key + 1}</td>
-                <td>{item.name}</td>
+                <td>{item.title}</td>
                 <td>{item.price}</td>
-                <td>{item.quantity}</td>
-                <td>
-                  <img src={item.image} alt="" width={200} height={200} />
-                </td>
-                <td>{item.nameBrand}</td>
+                <td>{item.description}</td>
+
                 <button
                   onClick={() => {
-                    dispatch(deleteLaptops(item.idLaptop)).then(() => {
-                      dispatch(getLaptops()).then(() => {
+                    dispatch(deleteTours(item.id)).then(() => {
+                      dispatch(getTours()).then(() => {
                         navigate("/home");
                       });
                     });
@@ -52,7 +43,7 @@ export default function ListLaptop() {
                 >
                   Delete
                 </button>
-                <Link to={`edit-laptop/${item.idLaptop}`}>
+                <Link to={`edit-tour/${item.id}`}>
                   <button>Edit</button>
                 </Link>
               </tr>

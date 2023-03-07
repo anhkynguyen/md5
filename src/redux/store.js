@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import laptopsReducer from "./laptops/laptopSlice";
+import toursReducer from "./tours/tourSlice";
 
 export const store = configureStore({
   reducer: {
-    laptops: laptopsReducer,
+    tours: toursReducer,
   },
 });
